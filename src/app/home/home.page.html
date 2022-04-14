@@ -1,0 +1,33 @@
+<ion-header [translucent]="false">
+  <ion-toolbar>
+    <ion-title>
+      Lista de Compras
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+<form [formGroup]="formulario" (submit)="adicionar()">
+  <div>
+    <ion-item>
+      <ion-label position="floating">Item</ion-label>
+      <ion-input type="text" formControlName="produto"></ion-input>
+    </ion-item>
+  </div>
+  <div>
+    <ion-button type="submit" expand="block" color="primary" type="submit">Adicionar</ion-button>
+  </div>
+</form>
+
+<div>
+  <ion-card *ngFor="let produto of produtos" class="new-item" color="translucent">
+    <ion-item>
+      <ion-label>{{produto}}</ion-label>
+      <ion-icon name="trash" (click)="excluir(produto)">x</ion-icon>
+    </ion-item>
+  </ion-card>
+</div>
+
+
+</ion-content>
