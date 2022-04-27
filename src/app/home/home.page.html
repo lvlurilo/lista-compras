@@ -8,26 +8,36 @@
 
 <ion-content [fullscreen]="true">
 
-<form [formGroup]="formulario" (submit)="adicionar()">
-  <div>
-    <ion-item>
-      <ion-label position="floating">Item</ion-label>
-      <ion-input type="text" formControlName="produto"></ion-input>
-    </ion-item>
-  </div>
-  <div>
-    <ion-button type="submit" expand="block" color="primary" type="submit">Adicionar</ion-button>
-  </div>
-</form>
+  <form [formGroup]="formulario">
+    <div>
+      <ion-item>
+        <ion-label position="floating">Item</ion-label>
+        <ion-input type="text" formControlName="nome"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Quantidade</ion-label>
+        <ion-input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+          formControlName="quantidade"></ion-input>
+      </ion-item>
+    </div>
+    <div *ngIf="addEdit == true">
+      <ion-button expand="block" color="primary" (click)="adicionar()">Adicionar</ion-button>
+    </div>
+    <div *ngIf="addEdit == false" style="text-align: center;">
+      <ion-button style="width: 42%;" color="primary" (click)="salvarEditar()">Salvar</ion-button>
+      <ion-button style="width: 42%;" color="tertiary" (click)="cancelar()">Cancelar</ion-button>
+    </div>
+  </form>
 
-<div>
-  <ion-card *ngFor="let produto of produtos" class="new-item" color="translucent">
-    <ion-item>
-      <ion-label>{{produto}}</ion-label>
-      <ion-icon name="trash" (click)="excluir(produto)">x</ion-icon>
-    </ion-item>
-  </ion-card>
-</div>
+  <div>
+    <ion-card *ngFor="let item of itens" class="new-item" color="translucent">
+      <ion-item>
+        <ion-label>{{item.quantidade}} - {{item.nome}}</ion-label>
+        <ion-icon name="create-outline" (click)="mostrarEditar(item)"></ion-icon>
+        <ion-icon name="trash" (click)="excluir(item.nome)"></ion-icon>
+      </ion-item>
+    </ion-card>
+  </div>
 
 
 </ion-content>
